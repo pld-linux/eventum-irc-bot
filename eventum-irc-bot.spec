@@ -8,6 +8,8 @@ License:	GPL v2+
 Group:		Networking/Utilities
 Source0:	https://github.com/eventum/irc-bot/archive/master/%{name}-%{version}-p2.tar.gz
 # Source0-md5:	a9bd2dcf229b6212b4ac2a417d10af4c
+Source1:	eventum-irc.init
+Source2:	eventum-irc.sysconfig
 URL:		https://github.com/eventum/scm
 Requires:	php(sockets)
 Requires:	php-pear-Net_SmartIRC >= 1.1.9
@@ -48,15 +50,16 @@ kanał używany przez bota, trzeba ręcznie zmodyfikować skrypt bot.php .
 mv irc-bot-*/* .
 mv config/{config.dist.php,config.php}
 
-%build
-composer install --no-dev -o
-
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{appdir},%{confdir}}
 cp -a bin src vendor $RPM_BUILD_ROOT%{appdir}
 cp -a config/*.php $RPM_BUILD_ROOT%{confdir}
 ln -s %{confdir} $RPM_BUILD_ROOT%{appdir}/config
+
+install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig}
+install -p %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/eventum-irc
+cp -p %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/eventum-irc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -66,6 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.md
 %dir %{confdir}
 %attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{confdir}/config.php
+%attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/eventum-irc
+%attr(754,root,root) /etc/rc.d/init.d/eventum-irc
 %attr(755,root,root) %{appdir}/bin/irc-bot.php
 %dir %{appdir}
 %dir %{appdir}/bin
