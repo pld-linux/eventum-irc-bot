@@ -3,17 +3,18 @@ Summary:	Eventum IRC Notification Bot
 Summary(pl.UTF-8):	IRC-owy bot powiadamiający dla Eventum
 Name:		eventum-irc-bot
 Version:	1.0.0
-Release:	0.2
+Release:	1
 License:	GPL v2+
 Group:		Networking/Utilities
-Source0:	https://github.com/eventum/irc-bot/archive/master/%{name}-%{version}-p2.tar.gz
-# Source0-md5:	a9bd2dcf229b6212b4ac2a417d10af4c
+Source0:	https://github.com/eventum/irc-bot/releases/download/v%{version}/irc-bot-v%{version}.tar.xz
+# Source0-md5:	dd8576789b42b8e37cd2dcd5cae83c99
 Source1:	eventum-irc.init
 Source2:	eventum-irc.sysconfig
+Patch0:		paths.patch
 URL:		https://github.com/eventum/scm
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 Requires:	php(sockets)
-Requires:	php-pear-Net_SmartIRC >= 1.1.9
-Provides:	eventum-irc = 4.4.0
 Obsoletes:	eventum-irc < 4.4
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -49,6 +50,7 @@ kanał używany przez bota, trzeba ręcznie zmodyfikować skrypt bot.php .
 %setup -qc
 mv irc-bot-*/* .
 mv config/{config.dist.php,config.php}
+%patch0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
