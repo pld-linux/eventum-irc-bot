@@ -2,16 +2,16 @@
 Summary:	Eventum IRC Notification Bot
 Summary(pl.UTF-8):	IRC-owy bot powiadamiający dla Eventum
 Name:		eventum-irc-bot
-Version:	1.0.0
+Version:	1.1.1
 Release:	1
 License:	GPL v2+
-Group:		Networking/Utilities
+Group:		Networking/Daemons
 Source0:	https://github.com/eventum/irc-bot/releases/download/v%{version}/irc-bot-v%{version}.tar.xz
-# Source0-md5:	dd8576789b42b8e37cd2dcd5cae83c99
+# Source0-md5:	d2e4a1c5d0df21a559c20cb1b7d2d73b
 Source1:	eventum-irc.init
 Source2:	eventum-irc.sysconfig
 Patch0:		paths.patch
-URL:		https://github.com/eventum/scm
+URL:		https://github.com/eventum/irc-bot
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	php(sockets)
