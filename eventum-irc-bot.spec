@@ -50,7 +50,7 @@ kanał używany przez bota, trzeba ręcznie zmodyfikować skrypt bot.php .
 %setup -qc
 mv irc-bot-*/* .
 mv config/{config.dist.php,config.php}
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
